@@ -1,5 +1,6 @@
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
 
 # Each row contains monthly spending (KES) and monthly shopping visits.
 customers = [
@@ -35,3 +36,18 @@ for cluster in clusters:
 print("\nTotal customers in each cluster:")
 for cluster_number, count in cluster_counts.items():
     print(f"Cluster {cluster_number}: {count} customers")
+
+# Bonus: show customers coloured by their K-Means group.
+scatter = plt.scatter(
+    [customer[0] for customer in customers],
+    [customer[1] for customer in customers],
+    c=clusters,
+    cmap="viridis",
+    s=80,
+)
+plt.xlabel("Monthly spending (KES)")
+plt.ylabel("Monthly visits")
+plt.title("Customer groups from K-Means")
+plt.colorbar(scatter, label="Cluster")
+plt.tight_layout()
+plt.show()
